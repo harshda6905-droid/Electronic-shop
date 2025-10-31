@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Electronic Store</title>
+</head>
+<body>
+  <h1>Electronic Products</h1>
+  <ul id="productList"></ul>
+
+  <script>
+    fetch("http://localhost:8080/api/products")
+      .then(res => res.json())
+      .then(data => {
+        const list = document.getElementById('productList');
+        data.forEach(p => {
+          const li = document.createElement('li');
+          li.textContent = `${p.name} - ₹${p.price}`;
+          list.appendChild(li);
+        });
+      });
+  </script>
+</body>
+</html>
