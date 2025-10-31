@@ -1,0 +1,33 @@
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+
+export default function ProductList() {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    axios.get("http://localhost:8080/api/products")
+      .then(res => setProducts(res.data))
+      .catch(err => console.log(err));
+  }, []);
+
+  return (
+    <div className="p-4">
+      <h2>Electronic Products</h2>
+      <table border="1" cellPadding="10">
+        <thead>
+          <tr>
+            <th>ID</th><th>Name</th><th>Category</th><th>Price</th><th>Quantity</th>
+          </tr>
+        </thead>
+        <tbody>
+          {products.map(p => (
+            <tr key={p.id}>
+              <td>{p.id}</td><td>{p.name}</td><td>{p.category}</td>
+              <td>{p.price}</td><td>{p.quantity}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
